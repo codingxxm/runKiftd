@@ -14,12 +14,13 @@ public class OpenKiftdWorker {
             Process process = Runtime.getRuntime().exec(initCommand);
             writer = new PrintWriter(process.getOutputStream());
             execCommand("-start");
+            execCommand("-files");
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public static void execCommand(String command){
+    public synchronized static void execCommand(String command){
         if(writer!=null && command!=null){
             writer.println(command);
             writer.flush();
